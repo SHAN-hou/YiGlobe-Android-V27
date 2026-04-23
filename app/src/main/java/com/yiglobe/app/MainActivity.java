@@ -48,10 +48,12 @@ public class MainActivity extends Activity {
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setDatabaseEnabled(true);
 
-        // 启用硬件加速的 WebGL 支持
-        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        // WebGL 性能优化: 不要设置 LAYER_TYPE_HARDWARE, 会与WebGL冲突导致卡顿
+        // WebView 默认已启用 GPU 合成 (manifest android:hardwareAccelerated="true")
+        webView.setLayerType(View.LAYER_TYPE_NONE, null);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
+        settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
 
         // 支持缩放 (可选, 3D场景自带缩放)
         settings.setBuiltInZoomControls(false);
